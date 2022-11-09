@@ -5,11 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "vue-cli-service build && gh-pages -d dist"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "firebase": "8.10.0",
+    "gh-pages": "^4.0.0",
     "inputmask": "^5.0.7",
     "normalize.css": "^8.0.1",
     "vue": "^3.0.0",

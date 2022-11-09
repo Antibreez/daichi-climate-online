@@ -6,4 +6,6 @@ module.exports = {
   css: {
     sourceMap: process.env.NODE_ENV === 'development',
   },
+  publicPath: 
+    process.env.NODE_ENV === 'development' ? '/' : './',
 }
