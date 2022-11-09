@@ -1,9 +1,9 @@
 <template>
   <div class="formBlock">
     <form>
-      <h2 class="formBlock__title">Вход по номеру телефона</h2>
+      <h2 class="formBlock__title">Вход через Email</h2>
       <p class="formBlock__desc">
-        Мы отправили код подтверждения на номер<br/> {{ phone }}
+        Мы отправили код подтверждения на Email<br/> {{ email }}
       </p>
       <div>
         <div class="formBlock__controls">
@@ -24,12 +24,12 @@
           <button
             class="formBlock__repeatBtn"
             @click.prevent="onRepeatClick"
-            :disabled="!!codeTimer"
+            :disabled="!!true"
           >
             Получить код повторно
           </button>
 
-          <span class="formBlock__repeateCodeValue" v-if="codeTimer">
+          <span class="formBlock__repeateCodeValue" v-if="true">
             (через {{ codeTimer }} сек.)
           </span>
         </div>
@@ -59,7 +59,7 @@ export default {
   computed: {
     ...mapState({
       errorMessage: state => state.auth.errorMessage,
-      phone: state => state.auth.phone,
+      email: state => state.auth.email,
       codeTimer: state => state.auth.codeTimer,
     }),
   },

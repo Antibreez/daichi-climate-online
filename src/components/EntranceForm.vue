@@ -38,7 +38,7 @@ import appButton from '@/components/Button'
 import appInput from '@/components/Input'
 import {mutationTypes, actionTypes} from '@/store/modules/auth'
 import {mapActions, mapMutations, mapState} from 'vuex'
-import codeCounter from '@/helpers/codeCounter'
+//import codeCounter from '@/helpers/codeCounter'
 
 export default {
   name: 'EntranceControl',
@@ -61,6 +61,7 @@ export default {
     ...mapMutations({
       changeError: mutationTypes.changeError,
       entrancePhone: mutationTypes.entrancePhone,
+      entranceEmail: mutationTypes.entranceEmail
     }),
     ...mapActions({
       entranceFindEmail: actionTypes.entranceFindEmail,
@@ -69,37 +70,38 @@ export default {
     }),
     onClick() {
       if (validation.email.isValid(this.entranceValue)) {
-        this.entranceFindEmail(this.entranceValue)
+        this.entranceEmail(this.entranceValue)
+        //this.entranceFindEmail(this.entranceValue)
       } else if (validation.phone.isValid(this.entranceValue)) {
-        console.log(this.entranceValue, this.phone)
+        this.entrancePhone(this.entranceValue)
+        // console.log(this.entranceValue, this.phone)
 
-        if (!codeCounter.get()) {
-          this.entranceCheckPhone(this.entranceValue).then(() => {
-            codeCounter.start()
-            this.codeTimerInit()
-          })
-        } else if (
-          codeCounter.get() &&
-          validation.phone.getProperValue(this.entranceValue) !== this.phone
-        ) {
-          this.entranceCheckPhone(this.entranceValue).then(() => {
-            clearInterval(codeCounter.timer)
-            codeCounter.start()
-            this.codeTimerInit()
-          })
-        } else if (
-          codeCounter.get() &&
-          validation.phone.getProperValue(this.entranceValue) === this.phone
-        ) {
-          this.entrancePhone(this.entranceValue)
-        }
+        // if (!codeCounter.get()) {
+        //   this.entranceCheckPhone(this.entranceValue).then(() => {
+        //     codeCounter.start()
+        //     this.codeTimerInit()
+        //   })
+        // } else if (
+        //   codeCounter.get() &&
+        //   validation.phone.getProperValue(this.entranceValue) !== this.phone
+        // ) {
+        //   this.entranceCheckPhone(this.entranceValue).then(() => {
+        //     clearInterval(codeCounter.timer)
+        //     codeCounter.start()
+        //     this.codeTimerInit()
+        //   })
+        // } else if (
+        //   codeCounter.get() &&
+        //   validation.phone.getProperValue(this.entranceValue) === this.phone
+        // ) {
+        //   this.entrancePhone(this.entranceValue)
+        // }
       } else {
         this.changeError(validation.entranceErrorMessage)
       }
     },
     onInput(val) {
       this.entranceValue = val
-
       // if (val.trim() === '79' || val.trim() === '89' || val.trim() === '+79') {
       //   this.setPhoneMask('+7 (999) 999-99-99')
       // }

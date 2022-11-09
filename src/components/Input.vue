@@ -1,14 +1,28 @@
 <template>
   <div class="input" :class="{invalid: isInvalid}">
-    <label :class="{isEmpty: isEmpty}">{{ label }}</label>
+    <label :class="{isEmpty: isFocus ? false : value ? false : true}">{{ label }}</label>
     <input
-      :type="inputType ? inputType : 'text'"
+      :class="iconType ? 'hasIcon' : null"
+      :type="type ? type : 'text'"
       @input="inputHandler"
       v-model="value"
-      @focus="isEmpty = false"
-      @blur="onBlur"
+      @focus="isFocus = true"
+      @blur="isFocus = false"
       ref="input"
     />
+    <button 
+      v-if="iconType === 'password'"
+      type="button"
+      class="input__iconBtn" 
+      @click="onPasswordIconClick"
+    >
+      <svg v-if="type === 'password'">
+        <use xlink:href="@/assets/images/sprite.svg#show"></use>
+      </svg>
+      <svg v-if="type === 'text'">
+        <use xlink:href="@/assets/images/sprite.svg#hide"></use>
+      </svg>
+    </button>
     <p class="input__message" v-if="hasErrorMessage && isInvalid">
       {{ errorMessage }}
     </p>
@@ -37,15 +51,22 @@ export default {
     isPhoneEmailInput: {
       type: Boolean,
     },
+    iconType: {
+      type: String
+    }
     // phoneMask: {
     //   type: String,
     // },
   },
   data() {
     return {
-      isEmpty: true,
+      type: this.inputType,
+      isFocus: false,
       value: '',
-      im: new Inputmask('+7 (999) 999-99-99'),
+      im: new Inputmask('+7 (999) 999-99-99', {
+        showMaskOnHover: false,
+        clearMaskOnLostFocus: false
+      }),
     }
   },
   // watch: {
@@ -86,6 +107,7 @@ export default {
         if (val === '89' || val === '79' || val === '+79') {
           this.setValue('9')
           this.setPhoneMask()
+          //this.setValue('+7 (9')
         }
 
         if (val === '') {
@@ -93,14 +115,7 @@ export default {
         }
       }
 
-      console.log(e.target.value)
       this.onInput(e.target.value)
-    },
-    onBlur() {
-      console.log(this.value)
-      if (this.value.trim() === '') {
-        this.isEmpty = true
-      }
     },
     setPhoneMask() {
       this.im.mask(this.$refs.input)
@@ -110,11 +125,9 @@ export default {
         this.$refs.input.inputmask.remove()
       }
     },
+    onPasswordIconClick() {
+      this.type === 'password' ? this.type = 'text' : this.type = 'password'
+    }
   },
-  // mounted() {
-  //   if (this.phoneMask) {
-  //     this.setPhoneMask()
-  //   }
-  // },
 }
 </script>

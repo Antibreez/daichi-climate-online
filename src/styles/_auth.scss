@@ -1,5 +1,7 @@
 .auth {
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: url('~@/assets/images/auth-bg.jpg') center / cover no-repeat;
 
   h1 {
@@ -17,7 +19,8 @@
 }
 
 .auth__wrapper {
-  height: 100%;
+  flex-grow: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }

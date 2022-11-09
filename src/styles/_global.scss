@@ -17,6 +17,7 @@ img {
 body {
   font-family: $font;
   min-height: 100vh;
+  min-width: $width-min;
 }
 
 .wrapper {

@@ -20,6 +20,7 @@ export const mutationTypes = {
   entranceNewEmail: '[auth] entranceNewEmail',
   entranceExistEmail: '[auth] entranceExistEmail',
   entrancePhone: '[auth] entrancePhone',
+  entranceEmail: '[auth] entranceEmail',
   entranceFailur: '[auth] entranceFailur',
 
   emailLoginStart: '[auth] emailLoginStart',
@@ -74,6 +75,11 @@ const mutations = {
     state.isLoading = false
     state.stage = 'PhoneCodeForm'
     state.phone = payload
+  },
+  [mutationTypes.entranceEmail](state, payload) {
+    state.isLoading = false
+    state.stage = 'EmailCodeForm'
+    state.email = payload
   },
   [mutationTypes.entranceFailur](state) {
     state.isLoading = false
@@ -243,7 +249,6 @@ const actions = {
       firebase.auth
         .signInWithPhoneNumber(properPhoneValue, appVerifier)
         .then(confRes => {
-          console.log(confRes)
           confirmationResult = confRes
           context.commit(mutationTypes.entrancePhone, properPhoneValue)
           resolve()

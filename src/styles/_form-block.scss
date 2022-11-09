@@ -28,28 +28,30 @@
   margin-bottom: 36px;
 }
 
-// .controls__repeateBtn {
-//   @include btn-reset;
-//   @include h16;
-//   margin-top: 24px;
-//   color: $primary;
-//   transition: color 0.3s;
+.formBlock__repeatBtn {
+  @include h16;
+  margin-top: 24px;
+  color: $primary;
+  transition: color 0.3s;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 
-//   &:not(:disabled):hover {
-//     cursor: pointer;
-//     color: $deep-blue;
-//   }
+  &:not(:disabled):hover {
+    cursor: pointer;
+    color: $additional;
+  }
 
-//   &:disabled {
-//     color: $grey300;
-//   }
-// }
+  &:disabled {
+    color: $grey300;
+  }
+}
 
 .formBlock__button {
   width: 100%;
 }
 
-.controls__repeateCodeValue {
+.formBlock__repeateCodeValue {
   display: block;
   @include b16;
   margin-top: 4px;

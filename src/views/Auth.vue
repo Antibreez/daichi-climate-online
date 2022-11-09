@@ -10,9 +10,10 @@
             <div id="recaptcha-container"></div>
             <button
               v-if="
-                stage === 'RegistrationForm' ||
-                stage === 'LoginForm' ||
-                stage === 'PhoneCodeForm'
+                //stage === 'RegistrationForm' ||
+                //stage === 'LoginForm' ||
+                stage === 'PhoneCodeForm' ||
+                stage === 'EmailCodeForm'
               "
               class="auth__goBack"
               aria-label="Перейти назад"
@@ -22,10 +23,11 @@
             <form-loader v-if="isLoading" />
 
             <entrance-form v-if="stage === 'EntranceForm'" />
-            <registration-form v-if="stage === 'RegistrationForm'" />
-            <login-form v-if="stage === 'LoginForm'" />
+            <!-- <registration-form v-if="stage === 'RegistrationForm'" /> -->
+            <!-- <login-form v-if="stage === 'LoginForm'" /> -->
             <phone-code-form v-if="stage === 'PhoneCodeForm'" />
-            <password-reset-form v-if="stage === 'PasswordResetForm'" />
+            <email-code-form v-if="stage === 'EmailCodeForm'" />
+            <!-- <password-reset-form v-if="stage === 'PasswordResetForm'" /> -->
           </div>
         </div>
       </main>
@@ -41,10 +43,11 @@
 import {mapMutations, mapState} from 'vuex'
 import FormLoader from '@/components/FormLoader'
 import EntranceForm from '@/components/EntranceForm'
-import RegistrationForm from '@/components/RegistrationForm'
-import LoginForm from '@/components/LoginForm'
+// import RegistrationForm from '@/components/RegistrationForm'
+// import LoginForm from '@/components/LoginForm'
 import PhoneCodeForm from '@/components/PhoneCodeForm'
-import PasswordResetForm from '@/components/PasswordResetForm'
+import EmailCodeForm from '@/components/EmailCodeForm'
+// import PasswordResetForm from '@/components/PasswordResetForm'
 import {mutationTypes} from '@/store/modules/auth'
 
 export default {
@@ -52,10 +55,11 @@ export default {
   components: {
     EntranceForm,
     FormLoader,
-    RegistrationForm,
-    LoginForm,
+    // RegistrationForm,
+    // LoginForm,
     PhoneCodeForm,
-    PasswordResetForm,
+    EmailCodeForm,
+    // PasswordResetForm,
   },
   computed: {
     ...mapState({
@@ -66,9 +70,11 @@ export default {
   methods: {
     ...mapMutations({
       changeStage: mutationTypes.changeStage,
+      changeError: mutationTypes.changeError
     }),
     goToStart() {
       this.changeStage('EntranceForm')
+      this.changeError('')
     },
   },
 }

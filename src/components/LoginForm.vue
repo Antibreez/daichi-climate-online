@@ -4,7 +4,7 @@
       <h2 class="formBlock__title">Вход через Email</h2>
       <p class="formBlock__desc">Введите пароль вашей учётной записи</p>
       <div>
-        <div class="controls">
+        <div class="formBlock__controls">
           <app-input
             label="Пароль"
             inputType="password"
@@ -12,12 +12,13 @@
             :hasErrorMessage="true"
           />
           <app-button
+            class="formBlock__button"
             :onClick="onClick"
             text="Войти"
             :disabled="password.trim() === '' || errorMessage.length > 0"
           ></app-button>
           <button
-            class="controls__repeateBtn"
+            class="formBlock__repeatBtn"
             @click.prevent="onForgotPassword"
           >
             Забыли пароль?
@@ -69,8 +70,8 @@ export default {
         this.$router.push({name: 'Home'})
       })
     },
-    onPasswordInput(e) {
-      this.password = e.target.value
+    onPasswordInput(val) {
+      this.password = val
 
       this.errorMessage && this.changeError('')
     },
