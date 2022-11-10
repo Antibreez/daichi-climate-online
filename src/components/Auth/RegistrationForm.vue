@@ -36,8 +36,8 @@
 
 <script>
 import validation from '@/helpers/validation'
-import appButton from '@/components/Button'
-import appInput from '@/components/Input'
+import appButton from '@/components/common/Button'
+import appInput from '@/components/common/Input'
 import {mutationTypes, actionTypes} from '@/store/modules/auth'
 import {mapActions, mapMutations, mapState} from 'vuex'
 

@@ -1,0 +1,63 @@
+.device-chip {
+  position: relative;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  background-color: $grey200;
+  min-height: 120px;
+  align-content: space-between;
+  align-items: flex-end;
+  color: $grey400;
+
+  svg {
+    width: 36px;
+    height: 36px;
+    margin-left: auto;
+  }
+
+  &__title {
+    @include b1;
+    width: 100%;
+  }
+
+  &__count {
+    @include h2;
+  }
+
+  &.error-devices {
+    color: $fail;
+    background-color: #ffebeb;
+
+    .device-chip__title {
+      color: $grey400;
+    }
+  }
+
+  &.active-devices {
+    color: $primary;
+    background-color: #e7f2ff;
+
+    .device-chip__title {
+      color: $grey400;
+    }
+  }
+
+  &__errors {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    min-width: 30px;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: 500;
+    color: #fff;
+    background-color: $fail;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 10px;
+  }
+}

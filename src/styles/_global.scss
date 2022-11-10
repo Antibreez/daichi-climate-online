@@ -17,7 +17,7 @@ img {
 body {
   font-family: $font;
   min-height: 100vh;
-  min-width: $width-min;
+  //min-width: $width-min;
 }
 
 .wrapper {
@@ -40,4 +40,9 @@ button {
   &:focus {
     outline: none;
   }
+}
+
+.h1 {
+  @include h3;
+  margin: 0 0 56px;
 }

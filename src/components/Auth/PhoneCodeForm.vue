@@ -3,7 +3,8 @@
     <form>
       <h2 class="formBlock__title">Вход по номеру телефона</h2>
       <p class="formBlock__desc">
-        Мы отправили код подтверждения на номер<br/> {{ phone }}
+        Мы отправили код подтверждения на номер<br />
+        {{ phone }}
       </p>
       <div>
         <div class="formBlock__controls">
@@ -39,8 +40,8 @@
 </template>
 
 <script>
-import appButton from '@/components/Button'
-import appInput from '@/components/Input'
+import appButton from '@/components/common/Button'
+import appInput from '@/components/common/Input'
 import {mapState, mapMutations, mapActions} from 'vuex'
 import {mutationTypes, actionTypes} from '@/store/modules/auth'
 //import codeCounter from '@/helpers/codeCounter'

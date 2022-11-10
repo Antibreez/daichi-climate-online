@@ -1,13 +1,13 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard'
 import Auth from '@/views/Auth'
-import {getItem} from '@/helpers/persistanceStorage'
+// import {getItem} from '@/helpers/persistanceStorage'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'dashboard',
+    component: Dashboard,
   },
   {
     path: '/auth',
@@ -21,10 +21,10 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.name !== 'auth' && !getItem('userUid')) next({name: 'auth'})
-  else if (to.name === 'auth' && !!getItem('userUid')) next({name: from.name})
-  else next()
-})
+// router.beforeEach((to, from, next) => {
+//   if (to.name !== 'auth' && !getItem('userUid')) next({name: 'auth'})
+//   else if (to.name === 'auth' && !!getItem('userUid')) next({name: from.name})
+//   else next()
+// })
 
 export default router

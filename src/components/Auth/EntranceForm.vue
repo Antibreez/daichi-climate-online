@@ -34,8 +34,8 @@
 
 <script>
 import validation from '@/helpers/validation'
-import appButton from '@/components/Button'
-import appInput from '@/components/Input'
+import appButton from '@/components/common/Button'
+import appInput from '@/components/common/Input'
 import {mutationTypes, actionTypes} from '@/store/modules/auth'
 import {mapActions, mapMutations, mapState} from 'vuex'
 //import codeCounter from '@/helpers/codeCounter'
@@ -61,7 +61,7 @@ export default {
     ...mapMutations({
       changeError: mutationTypes.changeError,
       entrancePhone: mutationTypes.entrancePhone,
-      entranceEmail: mutationTypes.entranceEmail
+      entranceEmail: mutationTypes.entranceEmail,
     }),
     ...mapActions({
       entranceFindEmail: actionTypes.entranceFindEmail,

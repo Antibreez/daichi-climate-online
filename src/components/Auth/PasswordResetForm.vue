@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import appButton from '@/components/Button'
+import appButton from '@/components/common/Button'
 import {mapMutations} from 'vuex'
 import {mutationTypes} from '@/store/modules/auth'
 

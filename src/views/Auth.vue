@@ -12,8 +12,7 @@
               v-if="
                 //stage === 'RegistrationForm' ||
                 //stage === 'LoginForm' ||
-                stage === 'PhoneCodeForm' ||
-                stage === 'EmailCodeForm'
+                stage === 'PhoneCodeForm' || stage === 'EmailCodeForm'
               "
               class="auth__goBack"
               aria-label="Перейти назад"
@@ -41,13 +40,13 @@
 
 <script>
 import {mapMutations, mapState} from 'vuex'
-import FormLoader from '@/components/FormLoader'
-import EntranceForm from '@/components/EntranceForm'
-// import RegistrationForm from '@/components/RegistrationForm'
-// import LoginForm from '@/components/LoginForm'
-import PhoneCodeForm from '@/components/PhoneCodeForm'
-import EmailCodeForm from '@/components/EmailCodeForm'
-// import PasswordResetForm from '@/components/PasswordResetForm'
+import FormLoader from '@/components/Auth/FormLoader'
+import EntranceForm from '@/components/Auth/EntranceForm'
+// import RegistrationForm from '@/components/Auth/RegistrationForm'
+// import LoginForm from '@/components/Auth/LoginForm'
+import PhoneCodeForm from '@/components/Auth/PhoneCodeForm'
+import EmailCodeForm from '@/components/Auth/EmailCodeForm'
+// import PasswordResetForm from '@/components/Auth/PasswordResetForm'
 import {mutationTypes} from '@/store/modules/auth'
 
 export default {
@@ -70,7 +69,7 @@ export default {
   methods: {
     ...mapMutations({
       changeStage: mutationTypes.changeStage,
-      changeError: mutationTypes.changeError
+      changeError: mutationTypes.changeError,
     }),
     goToStart() {
       this.changeStage('EntranceForm')

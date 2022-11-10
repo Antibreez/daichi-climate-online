@@ -1,0 +1,22 @@
+.dashboard {
+  &__devices-all {
+    display: flex;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+    justify-content: space-between;
+    margin-top: -16px;
+  }
+
+  &__devices-all-chip {
+    width: calc((100% - 32px) / 3);
+    margin-top: 16px;
+
+    &:first-child {
+      width: calc((100% - 16px) * 0.37);
+    }
+
+    &:nth-child(2) {
+      width: calc((100% - 16px) * 0.63);
+    }
+  }
+}
