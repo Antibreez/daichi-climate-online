@@ -1,0 +1,113 @@
+.filtersModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  transition: visibility 0s 0.3s;
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+  }
+
+  &__body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 375px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s;
+  }
+
+  &__header {
+    position: relative;
+    padding: 20px 16px;
+    padding-right: 60px;
+    border-bottom: 1px solid $grey200;
+  }
+
+  &__title {
+    @include h5;
+    margin: 0 0 8px;
+  }
+
+  &__reset {
+    @include btn-reset;
+    @include h7;
+    color: $primary;
+    transition: color 0.2s;
+
+    &:not(:disabled):hover {
+      color: $additional;
+      cursor: pointer;
+    }
+
+    &:disabled {
+      color: $grey300;
+    }
+  }
+
+  &__close {
+    @include btn-reset;
+    color: $grey400;
+    position: absolute;
+    top: 30px;
+    right: 22px;
+    font-size: 0;
+    line-height: 0;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $black;
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    flex-grow: 1;
+    padding: 24px 16px 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__checkbox {
+    margin-bottom: 16px;
+
+    &:last-of-type {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__submit {
+    margin-top: auto;
+    width: 100%;
+  }
+
+  &.opened {
+    visibility: visible;
+    transition-delay: 0s;
+
+    .filtersModal__overlay {
+      opacity: 1;
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    .filtersModal__body {
+      transform: translateX(0);
+    }
+  }
+}

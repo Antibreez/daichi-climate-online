@@ -91,4 +91,26 @@
   <symbol id="cloud" viewBox="0 0 36 36" fill="none">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M10.1835 15.6314C7.0455 15.6314 4.5 18.1769 4.5 21.3164C4.5 24.4559 7.0455 26.9999 10.1835 26.9999H25.815C28.9545 26.9999 31.5 24.4544 31.5 21.3164C31.5 18.1784 28.9545 15.6329 25.8165 15.6329C25.8165 11.3159 22.317 7.81641 18 7.81641C13.683 7.81641 10.1835 11.3144 10.1835 15.6314Z" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
   </symbol>
+
+  <symbol id="search" viewBox="0 0 24 24" fill="none">
+    <path d="M15.7138 6.8382C18.1647 9.28913 18.1647 13.2629 15.7138 15.7138C13.2629 18.1647 9.28913 18.1647 6.8382 15.7138C4.38727 13.2629 4.38727 9.28913 6.8382 6.8382C9.28913 4.38727 13.2629 4.38727 15.7138 6.8382" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 19L15.71 15.71" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="small-arrow" viewBox="0 0 24 25" fill="none">
+    <path d="M10 16.5L14 12.5L10 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  
+  <symbol id="close" viewBox="0 0 24 24" fill="none">
+    <path d="M5 5L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 5L5 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="filter" viewBox="0 0 24 24" fill="none">
+    <path d="M14.5 13.5L19.707 8.293C19.895 8.105 20 7.851 20 7.586V5C20 4.448 19.552 4 19 4H5C4.448 4 4 4.448 4 5V7.586C4 7.851 4.105 8.106 4.293 8.293L9.5 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9.5 13.5V19.749C9.5 20.562 10.264 21.159 11.053 20.962L13.553 20.337C14.109 20.198 14.5 19.698 14.5 19.124V13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="check" viewBox="0 0 24 24" fill="none">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1783 9.2652C17.5841 9.63981 17.6094 10.2725 17.2348 10.6783L12.2348 16.1783C11.8699 16.5736 11.2577 16.6094 10.8492 16.2593L7.34923 13.2593C6.9299 12.8998 6.88134 12.2685 7.24076 11.8492C7.60018 11.4299 8.23148 11.3813 8.65081 11.7407L11.419 14.1135L15.7652 9.32172C16.1398 8.9159 16.7725 8.8906 17.1783 9.2652Z" fill="currentColor"/>
+  </symbol>
 </svg>

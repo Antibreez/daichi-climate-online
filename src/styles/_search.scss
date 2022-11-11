@@ -1,0 +1,50 @@
+.search {
+  position: relative;
+
+  &__input {
+    @include b1;
+    border: none;
+    width: 100%;
+    background-color: $grey200;
+    border-radius: 8px;
+    padding: 8px 40px;
+    outline: none;
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: $grey250;
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    color: $grey400;
+    position: absolute;
+    top: 8px;
+    left: 8px;
+  }
+
+  &__clear-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: 0;
+    line-height: 0;
+    color: $grey400;
+    transition: color 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      color: $black;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

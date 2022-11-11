@@ -1,0 +1,48 @@
+.checkbox {
+  display: inline-block;
+  font-size: 0;
+  line-height: 0;
+  color: #323232;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &__box {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    background-color: $grey250;
+    margin-right: 14px;
+    transition: background-color 0.2s;
+  }
+
+  &__box-icon {
+    color: #fff;
+  }
+
+  &__text {
+    @include b1;
+  }
+
+  &__count {
+    @include b2;
+    color: $grey400;
+    margin-left: 14px;
+  }
+
+  &:hover {
+    label {
+      cursor: pointer;
+    }
+
+    .checkbox__box {
+      background-color: $grey300;
+    }
+  }
+
+  label input:checked ~ span.checkbox__box {
+    background-color: $primary;
+  }
+}

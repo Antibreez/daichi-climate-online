@@ -46,3 +46,21 @@ button {
   @include h3;
   margin: 0 0 56px;
 }
+
+.h2 {
+  @include h4;
+  margin: 0 0 24px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  margin: -1px;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
