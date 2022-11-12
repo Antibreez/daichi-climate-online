@@ -26,6 +26,16 @@
     @include b1;
   }
 
+  &__text-name {
+    @include h6;
+  }
+
+  &__text-count {
+    @include b2;
+    color: $grey400;
+    margin-top: 2px;
+  }
+
   &__count {
     @include b2;
     color: $grey400;
@@ -44,5 +54,47 @@
 
   label input:checked ~ span.checkbox__box {
     background-color: $primary;
+  }
+}
+
+.checkbox-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  min-height: 74px;
+  border-top: 1px solid $grey200;
+  border-bottom: 1px solid $grey200;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:not(.checked):hover {
+    .checkbox__box {
+      background-color: $grey300;
+    }
+  }
+
+  .checkbox__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &.checked .checkbox__box {
+    background-color: $primary;
+  }
+
+  .checkbox__arrow {
+    margin-left: auto;
+    color: $grey400;
+    transition: color 0.2s;
+  }
+
+  &:hover .checkbox__arrow {
+    color: $text-main;
   }
 }

@@ -6,6 +6,7 @@
       class="search__input"
       @input="onInput"
       v-model="searchValue"
+      :placeholder="placeholder"
     />
     <svg class="search__icon">
       <use xlink:href="@/assets/images/sprite.svg#search"></use>
@@ -30,6 +31,9 @@ export default {
     },
     onClear: {
       type: Function,
+    },
+    placeholder: {
+      type: String,
     },
   },
   data() {

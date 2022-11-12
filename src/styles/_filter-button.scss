@@ -2,21 +2,47 @@
   @include h6;
   display: flex;
   align-items: center;
-  padding: 6.5px 16px;
+  padding: 6px 16px;
   background: transparent;
-  border: 1.5px solid $grey300;
+  border: 2px solid $grey300;
   border-radius: 8px;
   color: $black;
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: $grey400;
+    border-color: $text-main;
     cursor: pointer;
+  }
+
+  &__icon {
+    position: relative;
+    margin-right: 10px;
+    font-size: 0;
+    line-height: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ef6461;
+      display: none;
+    }
   }
 
   svg {
     width: 24px;
     height: 24px;
-    margin-right: 10px;
+  }
+
+  &.active {
+    .filterButton__icon {
+      &::after {
+        display: block;
+      }
+    }
   }
 }

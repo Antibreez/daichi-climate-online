@@ -1,0 +1,91 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 4;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0s 0.3s;
+
+  &.opened {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    overflow-y: auto;
+
+    &::before {
+      content: '';
+      height: 100%;
+      width: 0;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  &__body {
+    position: relative;
+    display: inline-block;
+    padding: 28px 24px;
+    margin: 50px 0;
+    background-color: #fff;
+    vertical-align: middle;
+    border-radius: 10px;
+    min-width: 690px;
+    text-align: left;
+  }
+
+  &__title {
+    @include h4;
+    padding-right: 60px;
+  }
+
+  &__desc {
+    @include b1;
+    color: $grey400;
+    margin: 0 0 16px;
+  }
+
+  &__title + .modal__content {
+    margin-top: 28px;
+  }
+
+  &__title + .modal__desc {
+    margin-top: 20px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    font-size: 0;
+    line-height: 0;
+    color: $grey400;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $text-main;
+      cursor: pointer;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    padding-top: 40px;
+    justify-content: flex-end;
+  }
+}

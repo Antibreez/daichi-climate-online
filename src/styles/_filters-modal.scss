@@ -6,6 +6,7 @@
   height: 100vh;
   visibility: hidden;
   transition: visibility 0s 0.3s;
+  z-index: 3;
 
   &__overlay {
     position: absolute;
@@ -20,7 +21,7 @@
   }
 
   &__body {
-    position: absolute;
+    position: absolute !important;
     top: 0;
     right: 0;
     height: 100%;

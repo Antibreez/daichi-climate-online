@@ -1,10 +1,15 @@
 <template>
   <div class="filtersModal">
     <div class="filtersModal__overlay" @click="onClose"></div>
-    <div class="filtersModal__body">
+    <perfect-scrollbar class="filtersModal__body">
       <div class="filtersModal__header">
         <h3 class="filtersModal__title">Фильтры</h3>
-        <button type="button" class="filtersModal__reset" @click="onReset">
+        <button
+          type="button"
+          class="filtersModal__reset"
+          @click="onReset"
+          :disabled="isResetDisabled"
+        >
           Сбросить
         </button>
         <button type="button" class="filtersModal__close" @click="onClose">
@@ -14,7 +19,7 @@
       <div class="filtersModal__content">
         <slot />
       </div>
-    </div>
+    </perfect-scrollbar>
   </div>
 </template>
 
@@ -32,6 +37,9 @@ export default {
     },
     onReset: {
       type: Function,
+    },
+    isResetDisabled: {
+      type: Boolean,
     },
   },
 }

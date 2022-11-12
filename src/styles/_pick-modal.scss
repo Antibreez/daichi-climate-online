@@ -1,0 +1,30 @@
+.pick-modal {
+  &__list-title {
+    @include h6;
+    margin: 40px 0 40px;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__search + .pick-modal__list {
+    margin-top: 39px;
+  }
+
+  &__item {
+    display: flex;
+
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__not-found {
+    @include b1;
+    color: $grey400;
+    margin-top: 24px;
+  }
+}

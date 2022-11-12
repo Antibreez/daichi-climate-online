@@ -42,12 +42,17 @@ export default {
       type: Function,
     },
   },
+  // data() {
+  //   return {
+  //     checked: this.isChecked,
+  //   }
+  // },
   methods: {
     changeHandler(e) {
       e.preventDefault()
-      // const checked = e.target.checked
+      //this.checked = e.target.checked
 
-      this.onChange(this.inputName)
+      this.onChange(this.inputName, !this.isChecked)
     },
   },
 }

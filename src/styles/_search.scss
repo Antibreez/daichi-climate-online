@@ -10,6 +10,7 @@
     padding: 8px 40px;
     outline: none;
     transition: all 0.2s;
+    @include placeholder-color($grey400);
 
     &:hover {
       background-color: $grey250;
