@@ -19,4 +19,43 @@
       width: calc((100% - 16px) * 0.63);
     }
   }
+
+  &__error-devices-data-list {
+    .data-list__row {
+      color: inherit;
+    }
+
+    .data-list__sorting-item,
+    .data-list__row-item {
+      flex-shrink: 0;
+
+      width: 15.2%;
+
+      &:nth-child(2) {
+        width: 9.1%;
+      }
+
+      &:nth-child(3) {
+        width: 16.2%;
+      }
+
+      &:nth-child(4),
+      &:nth-child(5) {
+        width: 16.3%;
+      }
+
+      &:nth-child(6) {
+        width: 6.8%;
+      }
+
+      &:nth-child(7) {
+        width: 13%;
+        text-align: right;
+      }
+
+      &:nth-child(8) {
+        width: 7.1%;
+      }
+    }
+  }
 }

@@ -113,4 +113,14 @@
   <symbol id="check" viewBox="0 0 24 24" fill="none">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1783 9.2652C17.5841 9.63981 17.6094 10.2725 17.2348 10.6783L12.2348 16.1783C11.8699 16.5736 11.2577 16.6094 10.8492 16.2593L7.34923 13.2593C6.9299 12.8998 6.88134 12.2685 7.24076 11.8492C7.60018 11.4299 8.23148 11.3813 8.65081 11.7407L11.419 14.1135L15.7652 9.32172C16.1398 8.9159 16.7725 8.8906 17.1783 9.2652Z" fill="currentColor"/>
   </symbol>
+
+  <symbol id="comment-plus" viewBox="0 0 24 24" fill="none">
+    <path d="M13 17H18C19.657 17 21 15.657 21 14V6C21 4.343 19.657 3 18 3H6C4.343 3 3 4.343 3 6V14C3 15.657 4.343 17 6 17H8V21L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12 7V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15 10H9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+
+  <symbol id="comment" viewBox="0 0 24 24" fill="none">
+    <path d="M13 17H18C19.657 17 21 15.657 21 14V6C21 4.343 19.657 3 18 3H6C4.343 3 3 4.343 3 6V14C3 15.657 4.343 17 6 17H8V21L13 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
 </svg>

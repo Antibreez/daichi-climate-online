@@ -1,0 +1,8 @@
+.app {
+  height: 100vh;
+  overflow-y: auto;
+
+  &.js-no-scroll {
+    overflow: hidden !important;
+  }
+}

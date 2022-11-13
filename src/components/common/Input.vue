@@ -10,12 +10,7 @@
       @blur="isFocus = false"
       ref="input"
     />
-    <button 
-      v-if="iconType === 'password'"
-      type="button"
-      class="input__iconBtn" 
-      @click="onPasswordIconClick"
-    >
+    <button v-if="iconType === 'password'" type="button" class="input__iconBtn" @click="onPasswordIconClick">
       <svg v-if="type === 'password'">
         <use xlink:href="@/assets/images/sprite.svg#show"></use>
       </svg>
@@ -52,8 +47,11 @@ export default {
       type: Boolean,
     },
     iconType: {
-      type: String
-    }
+      type: String,
+    },
+    inputValue: {
+      type: String,
+    },
     // phoneMask: {
     //   type: String,
     // },
@@ -62,12 +60,17 @@ export default {
     return {
       type: this.inputType,
       isFocus: false,
-      value: '',
+      value: this.inputValue ? this.inputValue : '',
       im: new Inputmask('+7 (999) 999-99-99', {
         showMaskOnHover: false,
-        clearMaskOnLostFocus: false
+        clearMaskOnLostFocus: false,
       }),
     }
+  },
+  watch: {
+    inputValue() {
+      this.value = this.inputValue !== null ? this.inputValue : this.value
+    },
   },
   // watch: {
   //   phoneMask() {
@@ -126,8 +129,8 @@ export default {
       }
     },
     onPasswordIconClick() {
-      this.type === 'password' ? this.type = 'text' : this.type = 'password'
-    }
+      this.type === 'password' ? (this.type = 'text') : (this.type = 'password')
+    },
   },
 }
 </script>

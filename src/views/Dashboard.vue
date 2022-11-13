@@ -30,6 +30,7 @@
             </a>
           </div>
           <div class="dashboard__error-devices-data-list data-list">
+            <!-- СТРОКА ПОИСКА И ФИЛЬТРАЦИИ -->
             <div class="data-list__bar">
               <search
                 :onInput="deviceSearchInputHandler"
@@ -37,11 +38,7 @@
                 class="data-list__search"
                 placeholder="Поиск по названию устройства или данным владельца"
               />
-              <filter-button
-                class="data-list__filter"
-                :isActive="!isFiltersEmpty"
-                @click="filtersButtonHandler"
-              />
+              <filter-button class="data-list__filter" :isActive="!isFiltersEmpty" @click="filtersButtonHandler" />
 
               <!-- МОДАЛКА С ФИЛЬТРАМИ -->
               <filters-modal
@@ -119,19 +116,14 @@
                   :onClear="citySearchClearHandler"
                   class="pick-modal__search"
                   placeholder="Укажите название города в поиске"
+                  :needToClear="needToClearCityValue"
                 />
-                <h4
-                  v-if="citySearchValue.trim() === ''"
-                  class="pick-modal__list-title"
-                >
-                  Частые запросы:
-                </h4>
+                <p v-if="currentlyPickedCities.length > 0" class="pick-modal__selected">
+                  Выбрано ({{ currentlyPickedCities.length }})
+                </p>
+                <h4 v-if="citySearchValue.trim() === ''" class="pick-modal__list-title">Частые запросы:</h4>
                 <ul v-if="filteredCities.length > 0" class="pick-modal__list">
-                  <li
-                    v-for="city in filteredCities"
-                    :key="city.city"
-                    class="pick-modal__item"
-                  >
+                  <li v-for="city in filteredCities" :key="city.city" class="pick-modal__item">
                     <checkbox
                       class="pick-modal__checkbox"
                       :inputName="city.city"
@@ -141,19 +133,11 @@
                     />
                   </li>
                 </ul>
-                <p
-                  v-if="filteredCities.length === 0"
-                  class="pick-modal__not-found"
-                >
-                  Ничего не найдено
-                </p>
+                <p v-if="filteredCities.length === 0" class="pick-modal__not-found">Ничего не найдено</p>
                 <div class="modal__bottom">
                   <app-button
                     text="Сохранить"
-                    :disabled="
-                      this.currentlyPickedCities.length ===
-                      this.pickedFilters.cities.length
-                    "
+                    :disabled="this.currentlyPickedCities.length === this.pickedFilters.cities.length"
                     @click="submitCities"
                   />
                 </div>
@@ -172,45 +156,188 @@
                   :onClear="serviceSearchClearHandler"
                   class="pick-modal__search"
                   placeholder="Укажите название сервисного центра в поиске"
+                  :needToClear="needToClearServiceValue"
                 />
-                <h4
-                  v-if="serviceSearchValue.trim() === ''"
-                  class="pick-modal__list-title"
-                >
-                  Частые запросы:
-                </h4>
+                <h4 v-if="serviceSearchValue.trim() === ''" class="pick-modal__list-title">Частые запросы:</h4>
                 <ul v-if="filteredServices.length > 0" class="pick-modal__list">
-                  <li
-                    v-for="service in filteredServices"
-                    :key="service.service"
-                    class="pick-modal__item"
-                  >
+                  <li v-for="service in filteredServices" :key="service.service" class="pick-modal__item">
                     <checkbox
                       class="pick-modal__checkbox"
                       :inputName="service.service"
                       :text="service.service"
-                      :isChecked="
-                        currentlyPickedServices.includes(service.service)
-                      "
+                      :isChecked="currentlyPickedServices.includes(service.service)"
                       :onChange="serviceFilterChangeHandler"
                     />
                   </li>
                 </ul>
-                <p
-                  v-if="filteredServices.length === 0"
-                  class="pick-modal__not-found"
-                >
-                  Ничего не найдено
-                </p>
+                <p v-if="filteredServices.length === 0" class="pick-modal__not-found">Ничего не найдено</p>
                 <div class="modal__bottom">
                   <app-button
                     text="Сохранить"
-                    :disabled="
-                      this.currentlyPickedServices.length ===
-                      this.pickedFilters.services.length
-                    "
+                    :disabled="this.currentlyPickedServices.length === this.pickedFilters.services.length"
                     @click="submitServices"
                   />
+                </div>
+              </modal>
+            </div>
+
+            <p v-if="true" class="data-list__search-result">Устройств с ошибками не обнаружено</p>
+            <p v-if="true" class="data-list__search-result">Найдено: 1</p>
+            <p v-if="true" class="data-list__search-result">
+              По поисковому запросу "{{ deviceSearchValue }}" ничего не найдено.
+            </p>
+
+            <div class="data-list__content">
+              <!-- СТРОКА СОРТИРОВКИ -->
+              <div class="data-list__sorting">
+                <div class="data-list__sorting-item">
+                  <button
+                    class="data-list__sorting-button"
+                    :class="{
+                      'active-down': sorting.type === 'name' && sorting.direction === 'down',
+                      'active-up': sorting.type === 'name' && sorting.direction === 'up',
+                    }"
+                    @click="onSortingButtonClick('name', $event)"
+                  >
+                    <span class="data-list__sorting-text">Название</span>
+                    <span class="data-list__sorting-button-icon">
+                      <icon id="arrow" />
+                    </span>
+                  </button>
+                </div>
+                <div class="data-list__sorting-item">
+                  <button
+                    class="data-list__sorting-button"
+                    :class="{
+                      'active-down': sorting.type === 'errors' && sorting.direction === 'down',
+                      'active-up': sorting.type === 'errors' && sorting.direction === 'up',
+                    }"
+                    @click="onSortingButtonClick('errors', $event)"
+                  >
+                    <span class="data-list__sorting-text">Ошибки</span>
+                    <span class="data-list__sorting-button-icon">
+                      <icon id="arrow" />
+                    </span>
+                  </button>
+                </div>
+                <div class="data-list__sorting-item">
+                  <button
+                    class="data-list__sorting-button"
+                    :class="{
+                      'active-down': sorting.type === 'last-error-date' && sorting.direction === 'down',
+                      'active-up': sorting.type === 'last-error-date' && sorting.direction === 'up',
+                    }"
+                    @click="onSortingButtonClick('last-error-date', $event)"
+                  >
+                    <span class="data-list__sorting-text">Последняя ошибка</span>
+                    <span class="data-list__sorting-button-icon">
+                      <icon id="arrow" />
+                    </span>
+                  </button>
+                </div>
+                <div class="data-list__sorting-item">
+                  <div class="data-list__sorting-title">Владелец</div>
+                </div>
+                <div class="data-list__sorting-item">
+                  <button
+                    class="data-list__sorting-button"
+                    :class="{
+                      'active-down': sorting.type === 'city' && sorting.direction === 'down',
+                      'active-up': sorting.type === 'city' && sorting.direction === 'up',
+                    }"
+                    @click="onSortingButtonClick('city', $event)"
+                  >
+                    <span class="data-list__sorting-text">Город</span>
+                    <span class="data-list__sorting-button-icon">
+                      <icon id="arrow" />
+                    </span>
+                  </button>
+                </div>
+                <div class="data-list__sorting-item">
+                  <div class="data-list__sorting-title">Заявка</div>
+                </div>
+                <div class="data-list__sorting-item">
+                  <div class="data-list__sorting-title">Климат Онлайн</div>
+                </div>
+                <div class="data-list__sorting-item"></div>
+              </div>
+
+              <!-- СТРОКИ УСТРОЙСТВ С ОШИБКАМИ -->
+              <a
+                href="#"
+                v-for="device in ERROR_DEVICES.slice(0, 10)"
+                :key="device.id"
+                class="data-list__row"
+                @click="onDeviceClick"
+              >
+                <div class="data-list__row-item">
+                  <span class="data-list__main-text data-list__main-text--strong">
+                    {{ device.name }}
+                  </span>
+                  <span v-if="device.new" class="data-list__new-label"> Hoвая </span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__alert-text">{{ device.errors }}</span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__main-text">
+                    {{ device['last-error-date'] }}
+                  </span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__main-text data-list__main-text--strong">{{ device.owner.name }}</span>
+                  <span class="data-list__secondary-text">
+                    {{ device.owner.email }}
+                  </span>
+                  <span class="data-list__secondary-text">
+                    {{ device.owner.phone }}
+                  </span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__main-text">{{ device.city }}</span>
+                  <span class="data-list__secondary-text">
+                    {{ device['service-center'] }}
+                  </span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__presence-text">
+                    <span v-if="device.request">Да</span>
+                    <span v-if="!device.request">-</span>
+                  </span>
+                </div>
+                <div class="data-list__row-item">
+                  <span class="data-list__main-text">{{ device.expires }}</span>
+                </div>
+                <div class="data-list__row-item">
+                  <button
+                    class="data-list__comment"
+                    @click="commentButtonClickHandler(device.id, device.comment, $event)"
+                  >
+                    <icon v-if="!device.comment" id="comment-plus" class="data-list__comment-empty" />
+                    <icon v-if="device.comment" id="comment" class="data-list__comment-filled" />
+                    <span v-if="device.comment" class="data-list__comment-text">
+                      {{ device.comment }}
+                    </span>
+                  </button>
+                </div>
+              </a>
+
+              <button type="button" class="data-list__show-more">Показать ещё</button>
+
+              <!-- МОДАЛКА РЕДАКТИРОВАНИЯ/ДОБАВЛЕНИЯ КОММЕНТАРИЯ -->
+              <modal
+                :title="commentModalTitle"
+                :class="{opened: isCommentModalOpened}"
+                :onClose="closeCommentModalHandler"
+              >
+                <app-input
+                  label="Комментарий"
+                  :hasErrorMessage="false"
+                  :inputValue="commentInputValue"
+                  :onInput="inputCommentHandler"
+                />
+                <div class="modal__bottom">
+                  <app-button text="Сохранить" :disabled="this.currentComment === this.newComment" />
                 </div>
               </modal>
             </div>
@@ -232,6 +359,7 @@ import CheckboxButton from '@/components/common/CheckboxButton'
 import appButton from '@/components/common/Button'
 import Modal from '@/components/common/Modal'
 import Icon from '@/components/common/Icon'
+import AppInput from '@/components/common/Input'
 
 import {areObjectsEqual, areObjectKeysEmpty, copyObject} from '@/helpers/common'
 
@@ -240,6 +368,9 @@ import {CITIES} from '@/mock/cities'
 
 //ВРЕМЕННЫЕ ДАННЫЕ СЕРВИСНЫХ ЦЕНТРОВ ДЛЯ ВЕРСТКИ
 import {SERVICES} from '@/mock/services'
+
+//ВРЕМЕННЫЕ ДАННЫЕ УСТРОЙСТВ С ОШИБКАМИ ДЛЯ ВЕРСТКИ
+import ERROR_DEVICES from '@/mock/error-devices.json'
 
 export default {
   name: 'Dashboard',
@@ -254,16 +385,32 @@ export default {
     appButton,
     Modal,
     Icon,
+    AppInput,
   },
   data() {
     return {
+      ERROR_DEVICES,
+
+      //ПЕРЕМЕННЫЕ ДЛЯ ФИЛЬТРОВ
       isFiltersModalOpened: false,
       isCitiesModalOpened: false,
       isServicesModalOpened: false,
       citySearchValue: '',
+      needToClearCityValue: false,
       serviceSearchValue: '',
+      needToClearServiceValue: false,
 
-      //ПРИМЕНЕННЫЕ ФИЛЬТРЫ
+      //ПЕРЕМЕННАЯ СО ЗНАЧЕНИЕМ ПОИСКА УСТРОЙСТВА
+      deviceSearchValue: '',
+
+      //ПЕРЕМЕННЫЕ ДЛЯ РЕДАКТИРОВАНИЯ/ДОБАВЛЕНИЯ КОММЕНТАРИЯ
+      commentModalTitle: '',
+      commentInputValue: null,
+      currentComment: '',
+      newComment: '',
+      isCommentModalOpened: false,
+
+      //ФИЛЬТРЫ ПРИМЕНЁННЫЕ К СПИСКУ УСТРОЙСТВ
       activeFilters: {
         type: [],
         cities: [],
@@ -282,6 +429,12 @@ export default {
 
       //ФИЛЬТРЫ ВЫБРАННЫЕ В ОТКРЫТОМ ОКНЕ ВЫБОРА СЕРВИСНЫХ ЦЕНТРОВ
       currentlyPickedServices: [],
+
+      //ТЕКУЩИЙ ТИП СОРТИРОВКИ И НАПРАВЛЕНИЕ СОРТИРОВКИ
+      sorting: {
+        type: '',
+        direction: '',
+      },
     }
   },
   computed: {
@@ -299,11 +452,7 @@ export default {
         return CITIES.filter(city => city.popular === true)
       }
 
-      return CITIES.filter(city =>
-        city.city
-          .toLowerCase()
-          .includes(this.citySearchValue.trim().toLowerCase())
-      )
+      return CITIES.filter(city => city.city.toLowerCase().includes(this.citySearchValue.trim().toLowerCase()))
     },
     filteredServices() {
       if (this.serviceSearchValue.trim() === '') {
@@ -311,23 +460,24 @@ export default {
       }
 
       return SERVICES.filter(service =>
-        service.service
-          .toLowerCase()
-          .includes(this.serviceSearchValue.trim().toLowerCase())
+        service.service.toLowerCase().includes(this.serviceSearchValue.trim().toLowerCase())
       )
     },
   },
   methods: {
+    //============ МЕТОДЫ ПОИСКА УСТРОЙСТВ =============
     deviceSearchInputHandler(e) {
-      //Обрабатываем значение поиска при вводе
+      //Берём this.deviceSearchValue и меняем список отображаемых устройств
+      this.deviceSearchValue = e.target.value
       console.log(e.target.value)
     },
     deviceSearchClearHandler() {
-      //Обрабатываем сброс значения поиска
+      //Сбрасываем список устройств до начального состояния
+      this.deviceSearchValue = ''
       console.log('search cleared')
     },
 
-    //============ МОДАЛКА С ФИЛЬРАМИ ПЕРВОГО УРОВНЯ (ТОЛЬКО НОВЫЕ, ТОЛЬКО КОНТРОЛЛЕРЫ.....)=============
+    //============ МЕТОДЫ МОДАЛКИ С ФИЛЬТРАМИ ПЕРВОГО УРОВНЯ (ТОЛЬКО НОВЫЕ, ТОЛЬКО КОНТРОЛЛЕРЫ.....)=============
     //ОТКРЫВАЕМ МОДАЛКУ С ФИЛЬТРАМИ
     filtersButtonHandler() {
       this.isFiltersModalOpened = true
@@ -337,19 +487,14 @@ export default {
     typeFilterChangeHandler(name, checked) {
       const idx = this.pickedFilters.type.indexOf(name)
 
-      checked
-        ? (this.pickedFilters.type = [...this.pickedFilters.type, name])
-        : this.pickedFilters.type.splice(idx, 1)
+      checked ? (this.pickedFilters.type = [...this.pickedFilters.type, name]) : this.pickedFilters.type.splice(idx, 1)
     },
     //НАЖИМАЕМ НА СБРОС ФИЛЬТРОВ
     resetFiltersModalHandler() {
-      console.log('reset')
       Object.keys(this.pickedFilters).forEach(key => {
         this.pickedFilters[key] = []
       })
       this.currentlyPickedCities = []
-
-      console.log(this.pickedFilters)
     },
     //ЗАКРЫВАЕМ МОДАЛКУ ФИЛЬТРОВ БЕЗ СОХРАНЕНИЯ
     closeFiltersModalHandler() {
@@ -365,14 +510,15 @@ export default {
       this.isFiltersModalOpened = false
       document.body.classList.remove('js-no-scroll')
 
-      //Обрабатываем activeFilters и меняем список отображаемых устройств
+      //Берём this.activeFilters и меняем список отображаемых устройств
       console.log(this.activeFilters)
     },
 
-    //============ МОДАЛКА С ФИЛЬРАМИ ВТОРОГО УРОВНЯ (ГОРОДА)=================
+    //============ МЕТОДЫ МОДАЛКИ С ФИЛЬТРАМИ ВТОРОГО УРОВНЯ (ГОРОДА)=================
     //НАЖИМАЕМ НА ЧЕКБОКС ВЫБОРА ГОРОДА
     citiesPickClickHandler() {
       this.isCitiesModalOpened = true
+      this.needToClearCityValue = false
     },
     //МЕНЯЕМ ЧЕКБОКСЫ ГОРОДОВ
     cityFilterChangeHandler(name, checked) {
@@ -385,7 +531,6 @@ export default {
     //СОБЫТИЕ ПРИ ВВОДЕ В ПОЛЕ ПОИСКА ГОРОДОВ
     citySearchInputHandler(e) {
       this.citySearchValue = e.target.value
-      console.log(this.filteredCities)
     },
     //СОБЫТИЕ ПРИ ОЧИСТКЕ ПОЛЯ ПОИСКА ГОРОДОВ
     citySearchClearHandler() {
@@ -395,27 +540,29 @@ export default {
     citiesPickCloseHandler() {
       this.isCitiesModalOpened = false
       this.currentlyPickedCities = [...this.pickedFilters.cities]
+      this.needToClearCityValue = true
+      this.citySearchValue = ''
     },
     //ЗАКРЫВАЕМ МОДАЛКУ ВЫБОРА ГОРОДОВ С СОХРАНЕНИЕМ
     submitCities() {
       this.isCitiesModalOpened = false
       this.pickedFilters.cities = [...this.currentlyPickedCities]
+      this.needToClearCityValue = true
+      this.citySearchValue = ''
     },
 
-    //============ МОДАЛКА С ФИЛЬРАМИ ВТОРОГО УРОВНЯ (СЕРВИСНЫЕ ЦЕНТРЫ)=================
+    //============ МЕТОДЫ МОДАЛКИ С ФИЛЬТРАМИ ВТОРОГО УРОВНЯ (СЕРВИСНЫЕ ЦЕНТРЫ)=================
     //НАЖИМАЕМ НА ЧЕКБОКС ВЫБОРА СЕРВИСНОГО ЦЕНТРА
     servicesPickClickHandler() {
       this.isServicesModalOpened = true
+      this.needToClearServiceValue = false
     },
     //МЕНЯЕМ ЧЕКБОКСЫ СЕРВИСНЫХ ЦЕНТРОВ
     serviceFilterChangeHandler(name, checked) {
       const idx = this.currentlyPickedServices.indexOf(name)
 
       checked
-        ? (this.currentlyPickedServices = [
-            ...this.currentlyPickedServices,
-            name,
-          ])
+        ? (this.currentlyPickedServices = [...this.currentlyPickedServices, name])
         : this.currentlyPickedServices.splice(idx, 1)
     },
     //СОБЫТИЕ ПРИ ВВОДЕ В ПОЛЕ ПОИСКА СЕРВИСНЫХ ЦЕНТРОВ
@@ -430,11 +577,64 @@ export default {
     servicesPickCloseHandler() {
       this.isServicesModalOpened = false
       this.currentlyPickedServices = [...this.pickedFilters.services]
+      this.needToClearServiceValue = true
+      this.serviceSearchValue = ''
     },
     //ЗАКРЫВАЕМ МОДАЛКУ ВЫБОРА СЕРВИСНЫХ ЦЕНТРОВ С СОХРАНЕНИЕМ
     submitServices() {
       this.isServicesModalOpened = false
       this.pickedFilters.services = [...this.currentlyPickedServices]
+      this.needToClearServiceValue = true
+      this.serviceSearchValue = ''
+    },
+
+    //============ МЕТОДЫ МОДАЛКИ С РЕДАКТИРОВАНИЕМ/ДОБАВЛЕНИЕМ КОММЕНТАРИЯ К УСТРОЙСТВУ ================
+    commentButtonClickHandler(id, comment) {
+      this.currentComment = comment
+      this.newComment = comment
+      const device = ERROR_DEVICES.find(device => device.id === id)
+      const hasComment = !!comment
+
+      hasComment
+        ? (this.commentModalTitle = 'Редактировать комментарий')
+        : (this.commentModalTitle = 'Добавить комментарий')
+      this.commentInputValue = comment
+
+      this.isCommentModalOpened = true
+
+      console.log(device)
+    },
+    inputCommentHandler(val) {
+      this.newComment = val
+    },
+    closeCommentModalHandler() {
+      this.isCommentModalOpened = false
+      this.commentInputValue = null
+      this.currentComment = ''
+      this.newComment = ''
+    },
+
+    //============ МЕТОД НАЖАТИЯ НА КНОПКИ СОРТИРОВКИ ================
+    onSortingButtonClick(type) {
+      if (this.sorting.type === type) {
+        this.sorting.direction === 'up' ? (this.sorting.direction = 'down') : (this.sorting.direction = 'up')
+      } else {
+        this.sorting.type = type
+        this.sorting.direction = 'down'
+      }
+
+      //Сортируем список устройств в соответствии с типом this.sorting.type и направлением сортировки this.sorting.direction
+    },
+
+    //============ МЕТОД НАЖАТИЯ НА УСТРОЙСТВО ================
+    onDeviceClick(e) {
+      if (e.target.closest('.data-list__comment')) {
+        e.preventDefault()
+        console.log('comment click')
+        return
+      }
+
+      console.log('device click')
     },
   },
 }

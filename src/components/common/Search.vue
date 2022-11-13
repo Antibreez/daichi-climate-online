@@ -11,12 +11,7 @@
     <svg class="search__icon">
       <use xlink:href="@/assets/images/sprite.svg#search"></use>
     </svg>
-    <button
-      v-if="searchValue !== ''"
-      type="button"
-      class="search__clear-btn"
-      @click="clearHandler"
-    >
+    <button v-if="searchValue !== ''" type="button" class="search__clear-btn" @click="clearHandler">
       <svg><use xlink:href="@/assets/images/sprite.svg#close"></use></svg>
     </button>
   </div>
@@ -35,11 +30,22 @@ export default {
     placeholder: {
       type: String,
     },
+    needToClear: {
+      type: Boolean,
+    },
   },
   data() {
     return {
       searchValue: '',
     }
+  },
+  watch: {
+    needToClear() {
+      if (this.needToClear) {
+        this.searchValue = ''
+        this.$refs.input.value = ''
+      }
+    },
   },
   methods: {
     clearHandler() {

@@ -27,4 +27,17 @@
     color: $grey400;
     margin-top: 24px;
   }
+
+  &__selected {
+    @include h6;
+    margin-top: 24px;
+
+    & + .pick-modal__list-title {
+      margin-top: 24px;
+    }
+
+    & + .pick-modal__list {
+      margin-top: 40px;
+    }
+  }
 }
